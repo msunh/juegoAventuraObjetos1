@@ -25,8 +25,12 @@ Para recuperar energía, el personaje tiene que agarrar pollos, los pollos tambi
 
 Si el personaje se queda sin energía, entonces pierde. Si pasa por la puerta de salida, entonces gana. En cualquiera de los dos casos, debe aparecer un cartel que indique el resultado.
 
-## Bonuses
+## Estructura inicial
+El código que acompaña a este enunciado tiene una estructura básica del juego, incluyendo los dos niveles, y cómo hacer la transición entre niveles. Están resueltas: la transición del nivel 1 al 2, y el fin de juego en caso de ganar. Falta manejar el caso de perder.
 
+Se agregan algunos visuals, una tecla en el nivel 1 para simular que se terminó, y una tecla en el nivel 2 para simular que se ganó. Estas cosas son para probar: los visuals deben reemplazarse por los que implementen ustedes; con las teclas como prefieran, déjenlas como están, cambien de tecla, o bórrenlas.
+
+## Bonuses
 En el nivel 2, mostrar la energía restante en la parte de arriba del tablero.
 
 Lograr que cajas, llaves y comida aparezcan en lugares aleatorios.
@@ -35,6 +39,10 @@ En el nivel 2, arrancar con una sola comida, y que cada vez que el personaje obt
 
 En el nivel 2, que algunas llaves estén dentro de un cofre. Los cofres se abren de una patada, desde una posición adyacente. La patada que sea con una tecla. Cada patada le hace consumir al personaje 6 unidades de energía.
 
-Agregar un nivel 3, en el que hay bichos que se mueven. El objetivo es matar todos los bichos, lanzándoles cuchillos. El cuchillo recorre hasta 3 celdas en la dirección del último movimiento del personaje. Si un bicho se choca con el personaje, entonces le resta 20 unidades de salud, y vuelve a su posición anterior.   
-Se pueden hacer bichos con movimientos aleatorios, pero también que se muevan hacia el personaje.
+## Mega bonus
+Agregar un nivel 3, en el que hay bichos que se mueven automáticamente. El objetivo es matar todos los bichos, lanzándoles granadas. La granada recorre hasta 3 celdas en la dirección del último movimiento del personaje. Si un bicho se choca con el personaje, entonces le resta 20 unidades de salud, y vuelve a su posición anterior.  
+Atenti: el personaje nace sin granadas, tiene que recogerlas del tablero. 
 
+Se pueden hacer bichos con movimientos aleatorios, pero también que se muevan hacia el personaje.
+Se pueden agregar items (como los pollos) que dan energía, y otros que dan salud (ponele, un botiquín).
+Y ya da para poner indicadores de energía, salud y cantidad de granadas del personaje.
