@@ -3,8 +3,8 @@
 El enunciado de la parte grupal se puede ver [acá](https://github.com/obj1-unahur/juego-aventura-2019s2). Debajo se proponen algunas extensiones que deberán ser implementadas de manera individual.
 
 Para evitar problemas con Git y facilitarnos la corrección, te pedimos que sigas esta receta antes de empezar:
-1. Clonar este repositorio.
-1. Copiar y pegar todo el código del repositorio de tu entrega grupal acá (menos el `README.md`, para que no pierdas la consigna).
+1. Clonar este repositorio y el del TP grupal.
+1. Copiar y pegar las carpetas `src` y `assets` de tu entrega grupal acá. Decirle que sí a reemplazar, tiene que quedar todo lo del TP grupal.
 1. Hacer un commit **solo** con estos cambios.
 1. Comenzar a trabajar en la parte individual.
 
