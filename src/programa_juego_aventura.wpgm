@@ -1,14 +1,20 @@
 import wollok.game.*
 import nivel_bloques.*
+import personajes.*
+import personajes2.*
+import fondo.*
 
 program juego_aventura {
 
-	game.title("Oh qué aventura")
+	game.title("Team Qwerty - Un Juego de Aventuras ")
 	game.height(15)
 	game.width(15)
-	game.boardGround("fondoBlanco.png")
-
-	nivelBloques.configurate()	
+	game.boardGround("fondoInicio.png")
 	
+	game.schedule(4000, { game.addVisual(new Fondo(image="pantallaInicio.png")) game.sound("start.mp3")   }  )
+	
+	keyboard.c().onPressDo({ game.sound("moneda.mp3") nivelBloques.configurate() }  )
+		
+	//comienza el juego
 	game.start()
 }
