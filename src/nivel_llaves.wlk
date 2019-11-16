@@ -28,7 +28,11 @@ object nivelLlaves {
 			// agregamos los pollos
 			// en forma random (bonus)
 		game.addVisual(new Pollo(position = utilidadesParaJuego.posicionArbitraria()))
+		
+		game.addVisual(new Duplicador(position = utilidadesParaJuego.posicionArbitraria()))
 			// personaje, es importante que sea el último visual que se agregue
+			
+			
 		game.addVisual(personaje2)
 
 			// mover al personaje			 		
@@ -37,16 +41,16 @@ object nivelLlaves {
 		// así los sonidos de movimiento y de límite están en el mismo lugar
 		// lo mismo en nivelBloques
 		keyboard.left().onPressDo({ personaje2.moverIzquierda()
-			game.sound("move.wav")
+			//game.sound("move.wav")
 		})
 		keyboard.right().onPressDo({ personaje2.moverDerecha()
-			game.sound("move.wav")
+			//game.sound("move.wav")
 		})
 		keyboard.up().onPressDo({ personaje2.moverArriba()
-			game.sound("move.wav")
+			//game.sound("move.wav")
 		})
 		keyboard.down().onPressDo({ personaje2.moverAbajo()
-			game.sound("move.wav")
+			//game.sound("move.wav")
 		})
 			// dar la energia en un globito
 		keyboard.e().onPressDo({ personaje2.decirEnergia()})
@@ -72,11 +76,13 @@ object nivelLlaves {
 		game.whenCollideDo(personaje2, { elemento => personaje2.meChocoCon()})
 			// cuando me choco con la puerta despues de tener todas las llaves
 		game.whenCollideDo(personaje2, { elemento => personaje2.meChocoConPuerta() })
+		 	//me choco con modificador
+		game.whenCollideDo(personaje2, { elemento => elemento.meChocoElPersonaje()})
 	}
 
 	method perder() {
 		game.say(personaje2, "NO!!! PERDIMOS!")
-		game.sound("lost.wav")
+		//game.sound("lost.wav")
 		game.schedule(4000, { game.addVisual(new Fondo(image = "perdimos.png"))})
 		game.schedule(6000, { game.stop()})
 	}
@@ -84,7 +90,7 @@ object nivelLlaves {
 	
 		method ganar() {
 		game.say(personaje2, "SI! GANAMOS!! ")
-		game.sound("win.mp3")
+		//game.sound("win.mp3")
 		game.clear()
 		game.addVisual(new Fondo(image = "fondoNivel2.png"))
 		game.addVisual(personaje2)

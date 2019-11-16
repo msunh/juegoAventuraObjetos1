@@ -11,9 +11,9 @@ program juego_aventura {
 	game.width(15)
 	game.boardGround("fondoInicio.png")
 	
-	game.schedule(4000, { game.addVisual(new Fondo(image="pantallaInicio.png")) game.sound("start.mp3")   }  )
+	game.schedule(4000, { game.addVisual(new Fondo(image="pantallaInicio.png")) /*game.sound("start.mp3") */  }  )
 	
-	keyboard.c().onPressDo({ game.sound("moneda.mp3") nivelBloques.configurate() }  )
+	keyboard.c().onPressDo({ /*game.sound("moneda.mp3")*/ nivelBloques.configurate() }  )
 		
 	//comienza el juego
 	game.start()

@@ -128,11 +128,14 @@ object personaje2 {
 			game.colliders(self).forEach({ pollo =>
 				game.removeVisual(pollo)
 				energia += pollo.energiaQueOtorga()
-				game.sound("energia.mp3")
+				//game.sound("energia.mp3")
 				game.addVisual(new Pollo(position = utilidadesParaJuego.posicionArbitraria()))
 			})
 		}
 	}
+	
+
+	
 
 	// me choco con la puerta y gano el juego, antes evaluo si es una puerta.
 	method meChocoConPuerta() {
