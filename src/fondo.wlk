@@ -9,6 +9,7 @@ class Fondo {
 	const property esPuerta = false
 	const property esLlave = false
 	const property esCofre = false
+	const property esModificador = false
 
 	// este metodo es para que no nos de un error al posicionarnos en (0,0) 
 	method actualizarPosicion() {

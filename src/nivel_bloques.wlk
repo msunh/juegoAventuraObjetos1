@@ -24,16 +24,16 @@ object nivelBloques {
 		game.addVisual(personajeSimple)
 			// teclado
 		keyboard.left().onPressDo({ personajeSimple.moverIzquierda()
-			//game.sound("move.wav")
+			game.sound("move.wav")
 		})
 		keyboard.right().onPressDo({ personajeSimple.moverDerecha()
-			//game.sound("move.wav")
+			game.sound("move.wav")
 		})
 		keyboard.up().onPressDo({ personajeSimple.moverArriba()
-			//game.sound("move.wav")
+			game.sound("move.wav")
 		})
 		keyboard.down().onPressDo({ personajeSimple.moverAbajo()
-			//game.sound("move.wav")
+			game.sound("move.wav")
 		})
 			// para que agarre y suelte las cajas
 		keyboard.a().onPressDo({ personajeSimple.agarrarCaja()})
@@ -46,7 +46,7 @@ object nivelBloques {
 	}
 
 	method terminar() {
-		//game.sound("win.mp3")
+		game.sound("win.mp3")
 			// game.clear() limpia visuals, teclado, colisiones y acciones
 		game.clear()
 			// después puedo volver a agregar el fondo, y algún visual para que no quede tan pelado

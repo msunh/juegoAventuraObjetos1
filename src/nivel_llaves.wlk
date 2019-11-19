@@ -41,16 +41,16 @@ object nivelLlaves {
 		// así los sonidos de movimiento y de límite están en el mismo lugar
 		// lo mismo en nivelBloques
 		keyboard.left().onPressDo({ personaje2.moverIzquierda()
-			//game.sound("move.wav")
+			game.sound("move.wav")
 		})
 		keyboard.right().onPressDo({ personaje2.moverDerecha()
-			//game.sound("move.wav")
+			game.sound("move.wav")
 		})
 		keyboard.up().onPressDo({ personaje2.moverArriba()
-			//game.sound("move.wav")
+			game.sound("move.wav")
 		})
 		keyboard.down().onPressDo({ personaje2.moverAbajo()
-			//game.sound("move.wav")
+			game.sound("move.wav")
 		})
 			// dar la energia en un globito
 		keyboard.e().onPressDo({ personaje2.decirEnergia()})
@@ -77,12 +77,12 @@ object nivelLlaves {
 			// cuando me choco con la puerta despues de tener todas las llaves
 		game.whenCollideDo(personaje2, { elemento => personaje2.meChocoConPuerta() })
 		 	//me choco con modificador
-		game.whenCollideDo(personaje2, { elemento => elemento.meChocoElPersonaje()})
+		game.whenCollideDo(personaje2, { elemento => personaje2.meChocoModificador()})
 	}
 
 	method perder() {
 		game.say(personaje2, "NO!!! PERDIMOS!")
-		//game.sound("lost.wav")
+		game.sound("lost.wav")
 		game.schedule(4000, { game.addVisual(new Fondo(image = "perdimos.png"))})
 		game.schedule(6000, { game.stop()})
 	}
@@ -90,7 +90,7 @@ object nivelLlaves {
 	
 		method ganar() {
 		game.say(personaje2, "SI! GANAMOS!! ")
-		//game.sound("win.mp3")
+		game.sound("win.mp3")
 		game.clear()
 		game.addVisual(new Fondo(image = "fondoNivel2.png"))
 		game.addVisual(personaje2)

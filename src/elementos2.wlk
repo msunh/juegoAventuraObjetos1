@@ -11,7 +11,7 @@ class Llave {
 	const property esPollo = false
 	const property esPuerta = false
 	const property esCofre = false
-	const property modificador = false
+	const property esModificador = false
 
 }
 
@@ -19,21 +19,43 @@ class Pollo {
 
 	var property position
 	const property image = "pollo.png"
-	//var property energiaQueOtorga = 10.randomUpTo(30).truncate(0)// la energia la pusimos aleatoria en un rago de 10 a 30
-	var property energiaQueOtorga = 50
+	// var property energiaQueOtorga = 10.randomUpTo(30).truncate(0)// la energia la pusimos aleatoria en un rago de 10 a 30
+	// var property energiaQueOtorga = 50
+	var property energia = 10
 	const property esLlave = false
 	const property esPollo = true
 	const property esPuerta = false
 	const property esCofre = false
-	const property modificador = false
-	
-	
-	method duplicarEnergia(){
-		energiaQueOtorga = energiaQueOtorga * 2
+	const property esModificador = false
+
+	method energiaQueOtorga2() {
+		if (personaje2.ultimoModificadorEsDuplicador()) {
+			return energia * 2
+		} else if (personaje2.ultimoModificadorEsReforzador() and personaje2.energiaMenorA10()) {
+			return (energia * 2) + 20
+		} else if (personaje2.ultimoModificadorEsReforzador()) {
+			return energia * 2
+		} else if (personaje2.ultimoModificadorEsTriple() and personaje2.energiaDelPersonajePar()) {
+			return energia * 3
+		} else {
+			return 5
+		}
 	}
-	
-	method triplicarEnergia(){
-		energiaQueOtorga = energiaQueOtorga * 3
+
+	method energiaQueOtorga() {
+		if (personaje2.modificadores().isEmpty()) {
+			return energia
+		} else if (personaje2.ultimoModificadorEsDuplicador()) {
+			return energia * 2
+		} else if (personaje2.ultimoModificadorEsReforzador() and personaje2.energiaMenorA10()) {
+			return (energia * 2) + 20
+		} else if (personaje2.ultimoModificadorEsReforzador()) {
+			return energia * 2
+		} else if (personaje2.ultimoModificadorEsTriple() and personaje2.energiaDelPersonajePar()) {
+			return energia * 3
+		} else {
+			return 0
+		}
 	}
 
 }
@@ -46,7 +68,7 @@ class Cofre {
 	const property esPollo = false
 	const property esCofre = true
 	const property esLlave = false
-	const property modificador = false
+	const property esModificador = false
 
 }
 
@@ -79,7 +101,7 @@ object palabraEnergia {
 	const property esPuerta = false
 	const property esCofre = false
 	const property esLlave = false
-	const property modificador = false
+	const property esModificador = false
 
 }
 
@@ -90,15 +112,16 @@ object barra {
 // si tengo un método image(), no hace falta la var property
 // acá creeeo que se confunde, y por eso la barra no se actualiza enseguida
 // porque tenés dos métodos image(), el que te da Wollok por var property, y el que escribieron ustedes.
+//****areglado****
 	var property image = "1_barra_full.png"
 	const property position = game.at(4, 14)
 	const property esPuerta = false
 	const property esPollo = false
 	const property esCofre = false
 	const property esLlave = false
-	const property modificador = false
+	const property esModificador = false
 
-	method image() {
+	method tipoImage() {
 		if (personaje2.energia() == 0) {
 			image = "6_barra_vacia.png"
 		} else if (personaje2.energia().between(1, 2)) {
@@ -120,83 +143,55 @@ object barra {
 class Modificador {
 
 	var property position
-	// const property image = "modificador.png"
 	const property esLlave = false
 	const property esPollo = false
 	const property esPuerta = false
 	const property esCofre = false
-	const property modificador = true
-
-	method image()
-
-	method meChocoElPersonaje()
-
+	var property esModificador = true
 
 }
 
 class Duplicador inherits Modificador {
 
+	const property esDuplicador = true
+	const property esReforzador = false
+	const property esTriple = false
 	const property image = "duplicador.png"
 
-	override method meChocoElPersonaje() {
-		if (self.modificador()) {
-			game.colliders(self).forEach({ modificadores =>
-				game.removeVisual(self)
-					// self.duplicadorDeEnergia(pollo)
-					// game.sound("energia.mp3")
-				game.addVisual(new Reforzador(position = utilidadesParaJuego.posicionArbitraria()))
-			})
-		}
-	}
-
-	method duplicadorDeEnergia(pollo) {
-		pollo.duplicarEnergia()
+	method meChocaron() {
+		game.addVisual(new Reforzador(position = utilidadesParaJuego.posicionArbitraria()))
 	}
 
 }
 
-
-
 class Reforzador inherits Modificador {
 
+	const property esDuplicador = false
+	const property esReforzador = true
+	const property esTriple = false
 	const property image = "reforzador.png"
 
-	method duplicadorDeEnergia(Pollo) {
-		return Pollo.energiaQueOtorga() * 2
-	}
-
-	override method meChocoElPersonaje() {
-		if (self.modificador()) {
-			game.colliders(self).forEach({ modificadores =>
-				game.removeVisual(self)
-					// personaje2.agregaModificador(self.modificadorRandom())
-				//game.sound("energia.mp3")
-				game.addVisual(new Triple(position = utilidadesParaJuego.posicionArbitraria()))
-			})
-		}
+	method meChocaron() {
+		game.addVisual(new Triple(position = utilidadesParaJuego.posicionArbitraria()))
 	}
 
 }
 
 class Triple inherits Modificador {
 
+	const property esDuplicador = false
+	const property esReforzador = false
+	const property esTriple = true
 	const property image = "triplicador.png"
 
-	method duplicadorDeEnergia(pollo) {
-		return pollo.energiaQueOtorga() * 3
-	}
-
-	override method meChocoElPersonaje() {
-		if (self.modificador()) {
-			game.colliders(self).forEach({ modificadores =>
-				game.removeVisual(self)
-					// personaje2.agregaModificador(self.modificadorRandom())
-				//game.sound("energia.mp3")
-				game.addVisual(new Duplicador(position = utilidadesParaJuego.posicionArbitraria()))
-			})
-		}
+	method meChocaron() {
+		game.addVisual(new Duplicador(position = utilidadesParaJuego.posicionArbitraria()))
 	}
 
 }
+	
+
+
+
 
 

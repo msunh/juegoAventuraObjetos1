@@ -4,7 +4,6 @@ import nivel_llaves.*
 import utilidades.*
 
 // personaje del nivel 2
-
 // Carlos
 // los dos personajes comparten toda la lógica del movimiento, se podría haber definido una clase y usar herencia
 // o que del movimiento se encargaran otros objetos.
@@ -14,6 +13,8 @@ object personaje2 {
 	var property energia = 40
 	var property postionDelCofre
 	var property cantidadDeLlaves = []
+	var property modificadores = []
+	
 
 	// agrego el metodo de image para poder cambiar la imagen al perder 
 	method image() {
@@ -102,6 +103,11 @@ object personaje2 {
 		return game.colliders(self).first().esCofre()
 	}
 
+	// evaluo si me choco con modificador
+	method esModificador() {
+		return game.colliders(self).first().esModificador()
+	}
+
 	method noHayNada() {
 		return game.colliders(self).size() == 0
 	}
@@ -128,20 +134,57 @@ object personaje2 {
 			game.colliders(self).forEach({ pollo =>
 				game.removeVisual(pollo)
 				energia += pollo.energiaQueOtorga()
-				//game.sound("energia.mp3")
+					 game.sound("energia.mp3")
 				game.addVisual(new Pollo(position = utilidadesParaJuego.posicionArbitraria()))
 			})
 		}
 	}
-	
-
-	
 
 	// me choco con la puerta y gano el juego, antes evaluo si es una puerta.
 	method meChocoConPuerta() {
 		if (self.esPuerta()) {
-			
 			nivelLlaves.ganar()
+		}
+	}
+	
+		method ultimoModificador() {
+		return modificadores.last()
+	}
+	
+	method ultimoModificadorEsDuplicador(){
+		return modificadores.find({ m => m.esDuplicador() }) == self.ultimoModificador()
+	}
+	
+	method  ultimoModificadorEsReforzador(){
+		return modificadores.find({ m => m.esReforzador() }) == self.ultimoModificador()
+	}
+	
+	method  ultimoModificadorEsTriple(){
+		return modificadores.find({ m => m.esReforzador() }) == self.ultimoModificador()
+	}
+	
+	method energiaMenorA10(){
+		return self.energia() < 10
+	}
+	
+	method energiaDelPersonajePar(){
+		return self.energia().even()
+	}
+	
+	method energiaDelPersonajeImpar(){
+		return self.energia().odd()
+	}
+
+	// me choco con modificador
+	method meChocoModificador() {
+		if (self.esModificador()) {
+			game.colliders(self).forEach({ modificador =>
+				game.removeVisual(modificador)
+				modificadores.add(modificador)
+				modificador.meChocaron()
+				game.sound("energia.mp3")
+				
+			})
 		}
 	}
 
@@ -150,7 +193,7 @@ object personaje2 {
 		if (not self.sinEnergia()) {
 			position = posicionNueva
 			energia -= 1
-			barra.image()
+			barra.tipoImage()
 			if (self.sinEnergia()) {
 				nivelLlaves.perder()
 			}
@@ -173,7 +216,7 @@ object personaje2 {
 				postionDelCofre = cofre.position()
 				game.sound("romper.mp3")
 				energia -= 6
-			}) 
+			})
 			game.addVisual(new Llave(position = postionDelCofre))
 		}
 	}
