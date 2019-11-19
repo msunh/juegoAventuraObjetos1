@@ -133,7 +133,7 @@ object personaje2 {
 		if (self.esPollo()) {
 			game.colliders(self).forEach({ pollo =>
 				game.removeVisual(pollo)
-				energia += pollo.energiaQueOtorga()
+				energia += pollo.energiaQueOtorga().min(100)
 					 game.sound("energia.mp3")
 				game.addVisual(new Pollo(position = utilidadesParaJuego.posicionArbitraria()))
 			})
@@ -160,7 +160,7 @@ object personaje2 {
 	}
 	
 	method  ultimoModificadorEsTriple(){
-		return modificadores.find({ m => m.esReforzador() }) == self.ultimoModificador()
+		return modificadores.find({ m => m.esTriple() }) == self.ultimoModificador()
 	}
 	
 	method energiaMenorA10(){
