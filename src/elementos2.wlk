@@ -28,19 +28,7 @@ class Pollo {
 	const property esCofre = false
 	const property esModificador = false
 
-	method energiaQueOtorga2() {
-		if (personaje2.ultimoModificadorEsDuplicador()) {
-			return energia * 2
-		} else if (personaje2.ultimoModificadorEsReforzador() and personaje2.energiaMenorA10()) {
-			return (energia * 2) + 20
-		} else if (personaje2.ultimoModificadorEsReforzador()) {
-			return energia * 2
-		} else if (personaje2.ultimoModificadorEsTriple() and personaje2.energiaDelPersonajePar()) {
-			return energia * 3
-		} else {
-			return 5
-		}
-	}
+
 
 	method energiaQueOtorga() {
 		if (personaje2.modificadores().isEmpty()) {

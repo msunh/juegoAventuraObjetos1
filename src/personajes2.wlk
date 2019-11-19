@@ -133,7 +133,7 @@ object personaje2 {
 		if (self.esPollo()) {
 			game.colliders(self).forEach({ pollo =>
 				game.removeVisual(pollo)
-				energia += pollo.energiaQueOtorga().min(100)
+				energia += pollo.energiaQueOtorga()
 					 game.sound("energia.mp3")
 				game.addVisual(new Pollo(position = utilidadesParaJuego.posicionArbitraria()))
 			})
